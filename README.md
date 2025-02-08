@@ -2,7 +2,7 @@
 
 This project is an **AWS Lambda-powered notification system** that sends NBA game updates via **Amazon SNS (Simple Notification Service)**. It fetches game details from **SportsData.io** and notifies subscribed users via email. The function runs on a scheduled **Amazon EventBridge** rule.
 
-## 🚀 Features
+##  Features
 
 - Fetches NBA game data from **SportsData.io API**
 - Sends real-time updates on **game status, scores, and channels**
@@ -11,7 +11,7 @@ This project is an **AWS Lambda-powered notification system** that sends NBA gam
 
 ---
 
-## 📌 Prerequisites
+##  Prerequisites
 
 Before deploying, ensure you have:
 
@@ -21,7 +21,8 @@ Before deploying, ensure you have:
 
 ---
 
-## 🔧 Setup Instructions
+##  Setup Instructions
+
 
 ### 1️⃣ Create an SNS Topic
 
@@ -32,6 +33,7 @@ Before deploying, ensure you have:
 ![sns topic](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/create%20topic.png)
 
 ![subscribe sns topic](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/subscribe%20to%20topic.png)
+
 
 ### 2️⃣ Create an IAM Role for Lambda
 
@@ -59,6 +61,7 @@ Replace `XXXXXXXXXXXX` with your AWS Account ID.
 - Name the role **gd_lambda_role** and attach it to your Lambda function.
 
 ![role and policy](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/gd%20role%20and%20policy.png)
+
 
 ### 3️⃣ Deploy the AWS Lambda Function
 
@@ -128,7 +131,7 @@ def lambda_handler(event, context):
 
 - Click **Deploy**.
 
-![py script](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/test%20status%20.png)
+![test](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/test%20status%20.png)
 
 - Add **Environment Variables**:
 
@@ -152,6 +155,7 @@ def lambda_handler(event, context):
 
 ![email update 2](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update%202.png)
 
+
 ### 5️⃣ Automate with AWS EventBridge
 
 - Open **Amazon EventBridge** → **Create Rule**
@@ -169,7 +173,7 @@ def lambda_handler(event, context):
 ---
 
 
-## 📬 Expected Email Notification Format
+## Email Notification
 
 
 ![email update](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update.png)
@@ -177,7 +181,7 @@ def lambda_handler(event, context):
 ![email update 2](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update%202.png)
 ---
 
-## 📖 Summary
+## Summary
 
 - **AWS SNS** sends game notifications to subscribed emails.
 - **AWS Lambda** fetches NBA data and publishes updates.
