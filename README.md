@@ -28,6 +28,11 @@ Before deploying, ensure you have:
 - Open AWS SNS and create a new **topic** named `gd_topic`.
 - Subscribe an **email address** to this topic and confirm the email subscription.
 
+
+![sns topic](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/create%20topic.png)
+
+![subscribe sns topic](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/subscribe%20to%20topic.png)
+
 ### 2️⃣ Create an IAM Role for Lambda
 
 - Open **IAM** → **Roles** → **Create Role**.
@@ -48,9 +53,12 @@ Before deploying, ensure you have:
 }
 ```
 
+
 Replace `XXXXXXXXXXXX` with your AWS Account ID.
 
 - Name the role **gd_lambda_role** and attach it to your Lambda function.
+
+![role and policy](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/gd%20role%20and%20policy.png)
 
 ### 3️⃣ Deploy the AWS Lambda Function
 
@@ -59,6 +67,7 @@ Replace `XXXXXXXXXXXX` with your AWS Account ID.
 - Runtime: **Python 3.13**
 - Attach **gd_lambda_role** to the function.
 - Paste the following **Python script** into the function editor:
+  
 
 ```python
 import os
@@ -115,18 +124,33 @@ def lambda_handler(event, context):
     return {"statusCode": 200, "body": "Data processed and sent to SNS"}
 ```
 
+![py script](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/python%20script.png)
+
 - Click **Deploy**.
+
+![py script](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/test%20status%20.png)
+
 - Add **Environment Variables**:
 
   - `NBA_API_KEY`: Your SportsData.io API Key
   - `SNS_TOPIC_ARN`: ARN of your SNS Topic (e.g., `arn:aws:sns:us-east-1:XXXXXXXXXXXX:gd_topic`)
+ 
+![Env variable](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/Env%20variable%20setup.png)
+
 
 - Increase **timeout** under _General Configuration_ to **5 seconds or more**.
+
+![timeout](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/increase%20time%20out.png)
+
 
 ### 4️⃣ Test the Lambda Function
 
 - Click **Test**, create a test event, and run it.
 - Check your **email inbox** for an NBA game update notification!
+
+![email update](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update.png)
+
+![email update 2](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update%202.png)
 
 ### 5️⃣ Automate with AWS EventBridge
 
@@ -140,18 +164,17 @@ def lambda_handler(event, context):
 - **Target**: AWS Lambda → **NBA-GameDay-Notifier**
 - Click **Create Rule**.
 
+![Event bridge](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/event%20bridge%20schedule.png)
+
 ---
+
 
 ## 📬 Expected Email Notification Format
 
-```
-Game Status: Final
-Lakers vs Warriors
-Final Score: 102-98
-Start Time: 2024-02-08T19:30:00Z
-Channel: ESPN
-```
 
+![email update](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update.png)
+
+![email update 2](https://github.com/Joseph-Ibeh/NBA-Gameday-Notifier/blob/main/Assets/email%20score%20update%202.png)
 ---
 
 ## 📖 Summary
@@ -159,3 +182,10 @@ Channel: ESPN
 - **AWS SNS** sends game notifications to subscribed emails.
 - **AWS Lambda** fetches NBA data and publishes updates.
 - **Amazon EventBridge** schedules function execution.
+
+
+## 🛠 Challenges Encountered  
+### Lambda Execution Timeout  
+Initially, the function hit the default execution timeout limit. To resolve this, I:  
+- Increased the Lambda timeout to **5 seconds**.  
+
